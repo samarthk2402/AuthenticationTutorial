@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Form } from "./components/Form";
+import CreateNote from "./components/CreateNote";
 
 function Logout() {
   localStorage.clear();
@@ -26,6 +27,22 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/new-note"
+          element={
+            <ProtectedRoute>
+              <CreateNote method="new" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-note"
+          element={
+            <ProtectedRoute>
+              <CreateNote />
             </ProtectedRoute>
           }
         />

@@ -3,6 +3,7 @@ import api from "../api";
 import CreateNote from "../components/CreateNote";
 import Note from "../components/Note";
 import "../styles/Home.css";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [notes, setNotes] = useState([]);
@@ -44,7 +45,7 @@ const Home = () => {
       <h1>Notes</h1>
       <div className="notes-section">
         {notes.map((note) => (
-          <div className="note">
+          <div key={note.id} className="note">
             <Note
               key={note.id}
               note={note}
@@ -52,8 +53,10 @@ const Home = () => {
             />
           </div>
         ))}
+        <Link to="/new-note">
+          <button className="new-note-button">New Note</button>
+        </Link>
       </div>
-      <CreateNote getNotes={getNotes} />
     </div>
   );
 };

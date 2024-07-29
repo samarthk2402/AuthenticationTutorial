@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../api";
 import "../styles/Home.css";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-const CreateNote = ({ getNotes }) => {
+const CreateNote = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const location = useLocation();
+  const note = location.state;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (note !== null) {
+      setTitle(note.title);
+      setContent(note.content);
+    }
+  }, [note]);
 
   const createNote = (e) => {
     e.preventDefault();
@@ -13,7 +24,7 @@ const CreateNote = ({ getNotes }) => {
       .then((res) => {
         if (res.status === 201) {
           window.alert("Created Note!");
-          getNotes();
+          navigate("/");
         } else {
           window.alert("Failed to create note...");
         }
@@ -21,9 +32,24 @@ const CreateNote = ({ getNotes }) => {
       .catch((err) => console.log(err));
   };
 
+  const updateNote = (e) => {
+    e.preventDefault();
+    api
+      .put("/api/notes/update/" + note.id.toString(), { content, title })
+      .then((res) => {
+        if (res.status === 200) {
+          window.alert("Updated Note!");
+          navigate("/");
+        } else {
+          window.alert("Failed to update note...");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <form onSubmit={createNote}>
-      <h2>New Note</h2>
+    <form onSubmit={note ? updateNote : createNote}>
+      {note === null ? <h2>New Note</h2> : null}
       <label htmlFor="title">Title: </label>
       <br />
       <input
