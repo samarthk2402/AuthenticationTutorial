@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import api from "../api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import "../styles/Form.css";
 import LoadingIndicator from "./LoadingIndicator";
@@ -63,6 +63,7 @@ export const Form = ({ root, method }) => {
         {name}
       </button>
       {loading && <LoadingIndicator />}
+      {method == "login" && <Link to="/register">Or create an account</Link>}
     </form>
   );
 };
