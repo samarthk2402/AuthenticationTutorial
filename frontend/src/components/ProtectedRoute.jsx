@@ -37,7 +37,7 @@ const ProtectedRoute = ({ children }) => {
     }
     const decoded = jwtDecode(token);
     const tokenExpiration = decoded.exp;
-    const now = Date.now();
+    const now = Math.floor(Date.now() / 1000);
 
     if (tokenExpiration < now) {
       console.log("token expired! refreshing token...");
