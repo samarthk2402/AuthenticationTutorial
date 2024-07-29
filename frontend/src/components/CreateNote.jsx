@@ -23,7 +23,6 @@ const CreateNote = () => {
       .post("/api/notes/", { content, title })
       .then((res) => {
         if (res.status === 201) {
-          window.alert("Created Note!");
           navigate("/");
         } else {
           window.alert("Failed to create note...");
@@ -38,7 +37,6 @@ const CreateNote = () => {
       .put("/api/notes/update/" + note.id.toString(), { content, title })
       .then((res) => {
         if (res.status === 200) {
-          window.alert("Updated Note!");
           navigate("/");
         } else {
           window.alert("Failed to update note...");

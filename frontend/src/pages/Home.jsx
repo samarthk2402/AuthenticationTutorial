@@ -4,16 +4,20 @@ import CreateNote from "../components/CreateNote";
 import Note from "../components/Note";
 import "../styles/Home.css";
 import { Link } from "react-router-dom";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 const Home = () => {
   const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getNotes = () => {
+    setLoading(true);
     api
       .get("/api/notes/")
       .then((res) => res.data)
       .then((data) => {
         setNotes(data);
+        setLoading(false);
         console.log(data);
       })
       .catch((err) => console.log(err));
@@ -25,7 +29,6 @@ const Home = () => {
       .then((res) => {
         console.log(res.status);
         if (res.status === 204) {
-          window.alert("Note deleted!");
           getNotes();
         } else {
           window.alert("Failed to delete note!");
@@ -44,6 +47,7 @@ const Home = () => {
     <div>
       <h1>Notes</h1>
       <div className="notes-section">
+        {loading && <LoadingIndicator />}
         {notes.map((note) => (
           <div key={note.id} className="note">
             <Note
