@@ -4,7 +4,6 @@ import { ACCESS_TOKEN } from "./constants";
 const apiUrl = "/choreo-apis/notes-app/backend/v1";
 
 const api = axios.create({
-  // baseURL: apiUrl,
   baseURL: apiUrl,
 });
 
