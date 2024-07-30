@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 import dj_database_url
 
-DATABASES = {'default': dj_database_url.config(default=os.environ['DATABASE_URL'], engine='django_cockroachdb')}
+DATABASES = {'default': dj_database_url.config(default=os.getenv("DATABASE_URL"), engine='django_cockroachdb')}
 
 
 # Password validation
